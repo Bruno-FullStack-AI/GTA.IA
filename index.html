@@ -1,8 +1,16 @@
 <!DOCTYPE html>
+<!-- VERSÃO DO HTML (NOVA 5) -->
+
+<!-- DENTRO DA TAG HTML FICA TODO O MEU SISTEMA WEB(SITE) -->
 <html lang="pt-br">
 
+<!-- Cabeça(head) Configurações GERAIS do site -->
+
 <head>
+    <!-- Padrão Caracteres -->
     <meta charset="UTF-8">
+
+    <!-- COMPATIVEL COM CELULARES E COMPUTADORES -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="styles.css">
@@ -11,57 +19,52 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
-    <title>GTA IA</title>
+    <!-- TITULO DO SITE -->
+    <title>Document</title>
 </head>
 
+<!-- TUDO QUE EU ENXERGO NO SITE -->
+
 <body>
-    <p class="nome" id="nome">Lucia</p>
+    <p class="nome">Lucia</p>
 
-    <img class="personagem" id="personagem" src="img/lucia.png" alt="Lucia">
-
-    <!-- Mensagem de status durante o loading -->
-    <div class="loading-status" id="loading-status" hidden>
-        <p>✨ Transformando sua foto em personagem GTA...</p>
-    </div>
+    <img class="personagem" src="img/lucia.png">
+    <!-- source = ORIGEM(onde ela tá?) -->
 
     <div class="textos">
+
         <p class="etiqueta">Selecione o seu Personagem</p>
         <h1>Não é só <br>um Jogo</h1>
         <p class="texto-apoio">Escolha uma lenda de Dev City. Ou tire uma selfie e vire uma.</p>
+
     </div>
 
+    <!-- onclick - O que deve ACONTECER QUANDO EU CLIC -->
     <div class="menu">
-        <img class="avatar ativo" src="img/lucia.png" data-nome="Lucia" data-cor="#ff3cac" alt="Lucia">
-        <img class="avatar" src="img/jason.png" data-nome="Jason" data-cor="#00b2c9" alt="Jason">
-        <img class="avatar" src="img/cj.png" data-nome="CJ" data-cor="#7ed37e" alt="CJ">
-        <button class="voce" id="btn-foto" aria-label="Enviar minha foto">📸</button>
+
+        <img onclick="escolherPersonagem('Lucia', 'img/lucia.png', '#ff3cac')" class="avatar" src="img/lucia.png">
+
+        <img onclick="escolherPersonagem('Jason', 'img/jason.png', '#00b2c9')" class="avatar" src="img/jason.png">
+
+        <img onclick="escolherPersonagem('CJ', 'img/cj.png', '#7ed37e')" class="avatar" src="img/cj.png">
+
+        <label class="voce">📸
+
+            <!-- file(arquivos) accept(aceita) image/todas 
+             hidden (escondido)
+             change (quando mudar algo, faça algo)
+             this (isso aqui) - tudo que tem no input e enviar
+            -->
+            <input type="file" accept="image/*" hidden onchange="lerFoto(this)">
+        </label>
+
     </div>
 
-    <!-- escolha: galeria ou câmera -->
-    <div class="modal" id="modal" hidden>
-        <div class="modal-caixa">
-            <p class="modal-titulo">Sua foto</p>
-            <button class="modal-btn" id="opcao-galeria">🖼️ Galeria</button>
-            <button class="modal-btn" id="opcao-camera">📷 Câmera</button>
-            <button class="modal-fechar" id="modal-fechar">Cancelar</button>
-        </div>
-    </div>
-
-    <!-- galeria (no celular, com capture abre a câmera) -->
-    <input type="file" id="input-galeria" accept="image/*" hidden>
-
-    <!-- câmera ao vivo -->
-    <div class="modal" id="modal-camera" hidden>
-        <div class="modal-caixa">
-            <video id="video" autoplay playsinline muted></video>
-            <button class="modal-btn" id="tirar-foto">📸 Tirar foto</button>
-            <button class="modal-fechar" id="camera-fechar">Cancelar</button>
-        </div>
-    </div>
-
-    <!-- Puter.js: dá acesso à IA geradora de imagem (precisa vir ANTES do scripts.js) -->
-    <script src="https://js.puter.com/v2/"></script>
-    <script src="scripts.js"></script>
 </body>
+<script src=" https://js.puter.com/v2/ "></script>
+<script src="scripts.js">
+    // source = ORIGEM(onde ele tá?)
+
+</script>
 
 </html>
