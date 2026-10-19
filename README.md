@@ -20,10 +20,15 @@ Acesse: https://gta-ia.vercel.app/
 - 🔤 **Nome gigante dinâmico** atrás do personagem, no estilo das telas de loading do GTA.
 - 📷 **Foto do usuário**: envio pela galeria ou captura direta pela câmera.
 - 🤖 **Versão GTA gerada por IA**: a foto vira um personagem de videogame com fundo transparente, usando o [Puter.js](https://developer.puter.com/).
-- ⏳ **Tela de loading**: enquanto a IA gera a imagem, aparece só um "Loading..." animado, e o personagem entra quando fica pronto.
-- 🛟 **Plano B**: se a IA falhar, a foto original é exibida no lugar.
+- ⏳ **Tela de loading**: enquanto a IA gera a imagem, aparece só um "Loading..." animado com mensagens que se renovam, e o personagem entra quando fica pronto.
+- 🛟 **Plano B**: se a IA falhar, a foto original é exibida no lugar, com um aviso amigável (sem `alert` travando a página).
+- 🔄 **Tentar de novo**: se a IA falhar, um botão refaz a geração com a mesma foto, sem precisar escolher tudo outra vez.
+- ⬇️ **Baixar personagem**: um clique para salvar a sua versão GTA em PNG.
+- ⌨️ **Acessível pelo teclado**: os avatares respondem a Enter/Espaço, os menus fecham com Esc (ou clique no fundo) e o foco volta para o botão de origem.
+- 🧹 **Validação da foto**: avisa quando o arquivo não é imagem ou passa de 10 MB.
 - 📱 **100% responsivo**: celular em pé, celular deitado, tablet e desktop.
 - 🎨 Visual com a fonte **Bangers** e paleta rosa/amarelo neon.
+- ♿ **Respeita "reduzir movimento"**: quem prefere menos animação não recebe os efeitos de pulso e brilho.
 
 ---
 
@@ -92,8 +97,11 @@ Depois de escolher a foto, o fluxo é este:
 2. O site mostra o texto **Loading...** e esconde o personagem.
 3. A foto é enviada para a IA com `puter.ai.txt2img`, junto com um prompt pedindo o estilo de videogame e fundo transparente.
 4. A imagem gerada entra no lugar do personagem, e o nome vira **Você**.
+5. Os botões **⬇️ Baixar personagem** (ou **🔄 Tentar de novo**, se algo falhar) aparecem no canto superior direito.
 
 Se o usuário clicar em outro personagem durante o loading, a geração é descartada para não sobrescrever a nova escolha.
+
+Os avisos (câmera bloqueada, arquivo inválido, falha da IA) aparecem como um **toast** no topo da tela, então a experiência não é interrompida por um `alert`.
 
 ---
 

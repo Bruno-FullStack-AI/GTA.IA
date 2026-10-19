@@ -9,6 +9,16 @@ html {
     height: 100%;
 }
 
+/* ---------- Acessibilidade: foco visível para quem navega pelo teclado ---------- */
+.avatar:focus-visible,
+.voce:focus-visible,
+.modal-btn:focus-visible,
+.modal-fechar:focus-visible,
+.acao:focus-visible {
+    outline: 3px solid #ffd319;
+    outline-offset: 3px;
+}
+
 body {
     --altura-personagem: min(85dvh, 130vw);
     --tamanho-menu: clamp(44px, 7.5vh, 64px);
@@ -70,6 +80,41 @@ body {
 /* IA gerando a versão GTA: personagem escondido, só aparece o "Loading..." */
 .personagem.gerando {
     visibility: hidden;
+}
+
+/* ---------- Ações da foto (tentar de novo / baixar) ---------- */
+.acoes {
+    position: absolute;
+    z-index: 5;
+    top: max(18px, env(safe-area-inset-top));
+    right: max(18px, env(safe-area-inset-right));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    max-width: calc(100vw - 36px);
+}
+
+.acao {
+    padding: 10px 20px;
+    border: 2px solid #ffd319;
+    border-radius: 999px;
+    background: #1a1030;
+    color: #ffd319;
+    font-size: clamp(0.85rem, 2.4vh, 1.2rem);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.acao:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 24px rgba(255, 211, 25, 0.35);
+}
+
+.acao[hidden] {
+    display: none;
 }
 
 .nome.carregando {
@@ -161,6 +206,22 @@ h1 {
     transform: scale(1.1);
 }
 
+/* pulso chamando atenção para o botão da foto (some depois do primeiro uso) */
+.voce:not(.usada) {
+    animation: chamarAtencao 2.4s ease-out infinite;
+}
+
+@keyframes chamarAtencao {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 211, 25, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 14px rgba(255, 211, 25, 0);
+    }
+}
+
 /* ---------- (galeria / câmera) ---------- */
 .modal {
     position: fixed;
@@ -220,6 +281,52 @@ h1 {
     object-fit: cover;
     border-radius: 12px;
     transform: scaleX(-1);
+}
+
+/* ---------- Avisos na tela (toast) ---------- */
+.toast {
+    position: fixed;
+    z-index: 20;
+    top: max(16px, env(safe-area-inset-top));
+    left: 50%;
+    width: min(92vw, 560px);
+    padding: 14px 18px;
+    border: 2px solid #ff3cac;
+    border-radius: 12px;
+    background: #1a1030;
+    color: #ffd319;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transform: translate(-50%, -12px);
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.toast.mostrar {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.toast[hidden] {
+    display: none;
+}
+
+/* ---------- Aviso para quem está sem JavaScript ---------- */
+.sem-js {
+    position: fixed;
+    z-index: 30;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #1a1030;
+    color: #ffd319;
+    font-size: 1.4rem;
+    text-align: center;
 }
 
 /* ---------- Tablet ---------- */
@@ -355,7 +462,6 @@ h1 {
 }
 
 .nome.carregando {
-    animation: pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite;
     background: linear-gradient(90deg, #ff3cac, #ffd319, #ff3cac);
     background-size: 200% 200%;
     -webkit-background-clip: text;
@@ -376,25 +482,14 @@ h1 {
     }
 }
 
-/* Efeito de brilho no personagem quando carrega */
-.personagem.gerando {
-    visibility: hidden;
-    position: relative;
-}
+/* ---------- Quem prefere menos animação ---------- */
+@media (prefers-reduced-motion: reduce) {
 
-.personagem.gerando::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 60, 172, 0.3), transparent);
-    animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
